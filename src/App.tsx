@@ -104,6 +104,12 @@ export function App() {
 
   return (
     <ErrorBoundary>
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-xl focus:shadow-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none text-xs font-bold"
+      >
+        Skip to main content
+      </a>
       <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
         {/* Top Navigation Bar with View Switcher */}
         <Navbar 
@@ -116,6 +122,7 @@ export function App() {
 
         {/* Main Content Body */}
         <main 
+          id="main-content"
           role="main"
           className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8"
         >

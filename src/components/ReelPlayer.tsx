@@ -495,6 +495,21 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = React.memo(({
 
   // Render Topic-Specific Interactive Stickers & Overlays
   const renderInteractiveOverlaySticker = () => {
+    if (currentReel.id.startsWith('generated-')) {
+      return (
+        <div className="absolute top-16 left-4 right-14 z-20 pointer-events-none animate-in fade-in zoom-in duration-300">
+          <div className="bg-gradient-to-br from-indigo-950/95 via-purple-950/95 to-slate-950/95 border-2 border-indigo-400/80 rounded-2xl p-3 shadow-2xl backdrop-blur-md">
+            <div className="flex items-center space-x-1.5 pb-1 border-b border-indigo-500/30">
+              <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" style={{ animationDuration: '4s' }} />
+              <span className="text-[10px] font-bold text-amber-300 font-mono tracking-wider">AI-GENERATED LATENT REEL</span>
+            </div>
+            <p className="text-xs text-white font-bold mt-1 line-clamp-2">{currentReel.title}</p>
+            <p className="text-[10px] text-indigo-200 mt-0.5">Synthesized from your multi-reel interaction signals.</p>
+          </div>
+        </div>
+      );
+    }
+
     switch (currentReel.id) {
       case 'reel-java-meme':
         return (

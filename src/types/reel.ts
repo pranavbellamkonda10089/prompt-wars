@@ -67,7 +67,7 @@ export interface AgentChainStep {
   title: string;
   description: string;
   status: 'pending' | 'running' | 'completed' | 'warning' | 'success';
-  detailJson?: Record<string, any>;
+  detailJson?: Record<string, unknown>;
   timestamp: string;
 }
 
