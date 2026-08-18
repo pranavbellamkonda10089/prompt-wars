@@ -45,7 +45,7 @@ interface ReelPlayerProps {
   allReels: Reel[];
 }
 
-export const ReelPlayer: React.FC<ReelPlayerProps> = ({
+export const ReelPlayer: React.FC<ReelPlayerProps> = React.memo(({
   currentReelIndex,
   onSelectReelIndex,
   watchHistory,
@@ -746,11 +746,13 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
           >
             {/* Like Button */}
             <button 
+              aria-label={isLiked ? "Unlike reel" : "Like reel"}
               onClick={handleLikeButton}
-              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform"
+              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform focus-visible:ring-2 focus-visible:ring-rose-400 rounded-full"
             >
               <div className="p-1">
                 <Heart 
+                  aria-hidden="true"
                   className={`w-7 h-7 drop-shadow-lg transition-colors ${
                     isLiked ? 'text-rose-500 fill-rose-500 scale-110' : 'text-white hover:text-white/80'
                   }`} 
@@ -763,11 +765,12 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
 
             {/* Comment Button */}
             <button 
+              aria-label="View and post comments"
               onClick={() => setIsCommentsOpen(true)}
-              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform"
+              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-full"
             >
               <div className="p-1">
-                <MessageCircle className="w-7 h-7 text-white drop-shadow-lg group-hover:text-white/80 -scale-x-100" />
+                <MessageCircle aria-hidden="true" className="w-7 h-7 text-white drop-shadow-lg group-hover:text-white/80 -scale-x-100" />
               </div>
               <span className="text-[11px] font-semibold text-white drop-shadow">
                 {activeCommentsList.length >= 1000 
@@ -778,11 +781,12 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
 
             {/* Share / Direct Message Paper Plane */}
             <button 
+              aria-label="Share this reel"
               onClick={() => setIsShareOpen(true)}
-              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform"
+              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-full"
             >
               <div className="p-1">
-                <Send className="w-7 h-7 text-white drop-shadow-lg group-hover:text-white/80" />
+                <Send aria-hidden="true" className="w-7 h-7 text-white drop-shadow-lg group-hover:text-white/80" />
               </div>
               <span className="text-[11px] font-semibold text-white drop-shadow">
                 {currentReel.stats.shares >= 1000 ? `${(currentReel.stats.shares / 1000).toFixed(1)}K` : currentReel.stats.shares}
@@ -791,11 +795,13 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
 
             {/* Bookmark / Save */}
             <button 
+              aria-label={isSaved ? "Remove from bookmarks" : "Bookmark this reel"}
               onClick={handleSaveButton}
-              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform"
+              className="flex flex-col items-center focus:outline-none group active:scale-75 transition-transform focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-full"
             >
               <div className="p-1">
                 <Bookmark 
+                  aria-hidden="true"
                   className={`w-7 h-7 drop-shadow-lg transition-colors ${
                     isSaved ? 'text-white fill-white' : 'text-white hover:text-white/80'
                   }`} 
@@ -805,10 +811,11 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
 
             {/* More / Three Dots */}
             <button 
+              aria-label="More reel options"
               onClick={() => setIsMoreMenuOpen(true)}
-              className="p-1 text-white hover:text-white/80 focus:outline-none"
+              className="p-1 text-white hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-full"
             >
-              <MoreHorizontal className="w-6 h-6 drop-shadow-lg" />
+              <MoreHorizontal aria-hidden="true" className="w-6 h-6 drop-shadow-lg" />
             </button>
 
             {/* Spinning Vinyl Audio Album Disc */}
@@ -1186,4 +1193,6 @@ export const ReelPlayer: React.FC<ReelPlayerProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ReelPlayer.displayName = 'ReelPlayer';

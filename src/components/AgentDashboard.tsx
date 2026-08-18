@@ -21,7 +21,7 @@ interface AgentDashboardProps {
   onOpenTrapModal: () => void;
 }
 
-export const AgentDashboard: React.FC<AgentDashboardProps> = ({
+export const AgentDashboard: React.FC<AgentDashboardProps> = React.memo(({
   recommendation,
   onOpenTrapModal
 }) => {
@@ -32,39 +32,49 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
   };
 
   const getPhaseIcon = (phase: AgentChainStep['phase'], status: AgentChainStep['status']) => {
-    if (status === 'warning') return <AlertTriangle className="w-4 h-4 text-amber-400 animate-pulse" />;
+    if (status === 'warning') return <AlertTriangle className="w-4 h-4 text-amber-400 animate-pulse" aria-hidden="true" />;
     
     switch (phase) {
       case 'INGESTION':
-        return <Layers className="w-4 h-4 text-cyan-400" />;
+        return <Layers className="w-4 h-4 text-cyan-400" aria-hidden="true" />;
       case 'LATENT_INFERENCE':
-        return <BrainCircuit className="w-4 h-4 text-purple-400" />;
+        return <BrainCircuit className="w-4 h-4 text-purple-400" aria-hidden="true" />;
       case 'TRAP_DETECTION':
-        return <ShieldCheck className="w-4 h-4 text-emerald-400" />;
+        return <ShieldCheck className="w-4 h-4 text-emerald-400" aria-hidden="true" />;
       case 'ANTI_HYPE_FILTER':
-        return <Flame className="w-4 h-4 text-rose-400" />;
+        return <Flame className="w-4 h-4 text-rose-400" aria-hidden="true" />;
       case 'CURRICULUM_MATCH':
-        return <Compass className="w-4 h-4 text-blue-400" />;
+        return <Compass className="w-4 h-4 text-blue-400" aria-hidden="true" />;
       case 'SYNTHESIS':
-        return <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
+        return <CheckCircle2 className="w-4 h-4 text-emerald-400" aria-hidden="true" />;
       default:
-        return <Activity className="w-4 h-4 text-indigo-400" />;
+        return <Activity className="w-4 h-4 text-indigo-400" aria-hidden="true" />;
     }
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-4 sm:p-5 border border-indigo-500/20 shadow-xl flex flex-col space-y-4">
+    <section 
+      role="region"
+      aria-label="AI Intelligence Reasoning Dashboard"
+      className="glass-panel rounded-2xl p-4 sm:p-5 border border-indigo-500/20 shadow-xl flex flex-col space-y-4"
+    >
       {/* Header with Live Status Indicator */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
         <div className="flex items-center space-x-2.5">
-          <div className="p-2 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300">
+          <div 
+            aria-hidden="true"
+            className="p-2 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300"
+          >
             <BrainCircuit className="w-5 h-5 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <h2 className="text-base font-bold text-white tracking-tight">AI Agent Reasoning Core</h2>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1" />
+              <span 
+                role="status" 
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1" aria-hidden="true" />
                 Live CoT Trace
               </span>
             </div>
@@ -74,32 +84,40 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
 
         {/* Trap Comparison Trigger */}
         <button
+          aria-label="Open Built-in Trap Comparison Matrix"
           onClick={onOpenTrapModal}
-          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/40 text-amber-300 text-xs font-semibold transition shadow-sm hover:shadow-amber-500/20 hover:scale-[1.02]"
+          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/40 text-amber-300 text-xs font-semibold transition shadow-sm hover:shadow-amber-500/20 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
           <span>Trap Matrix Demo</span>
         </button>
       </div>
 
       {/* Latent Inferred Interests Radar / Distribution */}
-      <div className="bg-slate-900/80 rounded-xl p-3.5 border border-slate-800">
+      <article className="bg-slate-900/80 rounded-xl p-3.5 border border-slate-800" aria-label="Inferred Latent Affinity Vectors">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-            <BarChart3 className="w-3.5 h-3.5 text-indigo-400" />
+            <BarChart3 className="w-3.5 h-3.5 text-indigo-400" aria-hidden="true" />
             Inferred Latent Affinity Vectors (0-100%)
           </span>
           <span className="text-[10px] font-mono text-slate-400">Multi-reel Synthesis</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2" role="list">
           {recommendation.interestVector.map((interest, idx) => (
-            <div key={idx} className="space-y-1 bg-slate-950/60 p-2 rounded-lg border border-white/5">
+            <div key={idx} role="listitem" className="space-y-1 bg-slate-950/60 p-2 rounded-lg border border-white/5">
               <div className="flex justify-between text-[11px]">
                 <span className="text-slate-300 font-medium truncate">{interest.name}</span>
                 <span className="font-mono font-bold text-indigo-300">{interest.score}%</span>
               </div>
-              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div 
+                role="progressbar"
+                aria-valuenow={interest.score}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={`Affinity score for ${interest.name}: ${interest.score}%`}
+                className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden"
+              >
                 <div 
                   className={`h-full rounded-full transition-all duration-500 ${
                     interest.score > 80 
@@ -112,7 +130,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
             </div>
           ))}
         </div>
-      </div>
+      </article>
 
       {/* Chain of Thought Step Timeline */}
       <div className="space-y-2">
@@ -121,7 +139,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
           <span className="font-mono text-[10px] text-indigo-300">Deterministic + Cognitive Filter</span>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-2" role="list">
           {recommendation.chainOfThought.map((step) => {
             const isExpanded = expandedStepId === step.id;
             const isWarning = step.status === 'warning';
@@ -129,6 +147,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
             return (
               <div 
                 key={step.id}
+                role="listitem"
                 className={`rounded-xl border transition-all overflow-hidden ${
                   isWarning 
                     ? 'bg-amber-950/20 border-amber-500/40 shadow-sm shadow-amber-500/10' 
@@ -136,8 +155,18 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
                 }`}
               >
                 <div 
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isExpanded}
+                  aria-label={`${step.title} phase ${step.phase}. Status: ${step.status}`}
                   onClick={() => toggleStep(step.id)}
-                  className="flex items-center justify-between p-2.5 cursor-pointer select-none"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleStep(step.id);
+                    }
+                  }}
+                  className="flex items-center justify-between p-2.5 cursor-pointer select-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none"
                 >
                   <div className="flex items-center space-x-2.5">
                     <div className={`p-1.5 rounded-lg ${
@@ -164,7 +193,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
 
                   <div className="flex items-center space-x-2 text-slate-400">
                     <span className="text-[10px] font-mono">{step.timestamp}</span>
-                    {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                    {isExpanded ? <ChevronDown className="w-4 h-4" aria-hidden="true" /> : <ChevronRight className="w-4 h-4" aria-hidden="true" />}
                   </div>
                 </div>
 
@@ -178,7 +207,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
                     {step.detailJson && (
                       <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-800/80 font-mono text-[11px] text-indigo-200 overflow-x-auto">
                         <div className="text-[10px] text-slate-500 mb-1 font-sans font-semibold flex items-center gap-1">
-                          <FileCode2 className="w-3 h-3 text-indigo-400" />
+                          <FileCode2 className="w-3 h-3 text-indigo-400" aria-hidden="true" />
                           <span>Internal Inspection Payload</span>
                         </div>
                         <pre className="whitespace-pre-wrap">
@@ -198,7 +227,7 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
       <div className="p-3 rounded-xl bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-slate-950 border border-indigo-500/30 flex items-center justify-between text-xs">
         <div className="flex items-center space-x-2">
           <div className="p-1 rounded bg-indigo-500/20 text-indigo-300">
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="w-4 h-4" aria-hidden="true" />
           </div>
           <div>
             <span className="font-semibold text-indigo-200">Anti-Hype Filter Rating: </span>
@@ -212,6 +241,8 @@ export const AgentDashboard: React.FC<AgentDashboardProps> = ({
           0% Fluff Verified
         </span>
       </div>
-    </div>
+    </section>
   );
-};
+});
+
+AgentDashboard.displayName = 'AgentDashboard';
